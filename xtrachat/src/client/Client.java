@@ -13,7 +13,7 @@ public class Client {
 	{
 		Client c = new Client();
 		System.out.println("Client Started...");
-		System.out.println("Making a request at localhost:1337");
+		System.out.println("Making a request to localhost:1337");
 		c.send();
 	}
 
@@ -22,9 +22,24 @@ public class Client {
 		try
 		{
 			client_socket = new Socket("127.0.0.1", 1337);
-			
-			writer  = new PrintWriter(client_socket.getOutputStream());
 			System.out.println("Connection Established");
+			
+			writer = new PrintWriter(client_socket.getOutputStream());
+			while(true)
+			{
+				Scanner in = new Scanner(System.in);
+				System.out.print("Send: ");
+				String text;
+				text = in.nextLine();
+				writer.println(text + "\n");
+				writer.flush();
+
+				//Exiting the loop when user enters exit
+				if (text.equals("exit"))
+				{
+					break;
+				}
+			}
 		}
 		catch(IOException ex)
 		{
