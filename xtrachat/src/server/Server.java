@@ -1,5 +1,5 @@
-//basic server without threading
-//package server;
+package xtrachat.src.server;
+//added basic threading
 
 import java.net.*;
 import java.util.*;
@@ -18,13 +18,16 @@ public class Server {
 				System.out.println("Waiting for a client to connect...");
 				Socket client_socket = server_socket.accept();
 				System.out.println("Connected to a client...");
+				Thread t1 = new Thread(new ClientHandler(client_socket));
+				//new thread for each client
+				t1.start();
 
 				//PrintWriter writer  = new PrintWriter(client_socket.getOutputStream());
 				//writer.println("Connected");
 				//writer.close();
 
 				//Reading from client_socket
-				while(true)
+				/*while(true)
 				{
 					BufferedReader in = 
 						new BufferedReader(new InputStreamReader(client_socket.getInputStream()));
@@ -36,7 +39,7 @@ public class Server {
 					{
 						break;
 					}
-				}
+				}*/
 
 				//based on input string or button event call other method for chat room etc.   
 			}
